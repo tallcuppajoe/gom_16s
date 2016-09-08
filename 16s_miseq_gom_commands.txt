@@ -1,11 +1,11 @@
 
 #We need to create gom.stability.files which is simply a text file with the samples and the associated fastq files for the forward and reverse reads
 #An example is in L:\lab\GenomicsNutrients\Computing\MiSeq_SOP. This may change a little once the data are in. start with make.contigs for practice with the tutorial data
-make.file(type=gz, input=D:\gom\data\16S\16S\raw\gom.gz, outputdir=D:\gom\data\16S\16S\raw)
+make.file(type=gz, input=D:\gom\data\16S\raw\gom.gz, outputdir=D:\gom\data\16S\raw)
 #The result of the make.file command is a fileList.paired.file which we will rename
-system(rename D:\gom\data\16S\16S\raw\fileList.paired.file gom.stability.files)
+system(rename D:\gom\data\16S\raw\fileList.paired.file gom.stability.files)
 #We will then use the stability files to make contigs and merge the forward and reverse reads
-make.contigs(file=D:\gom\data\16S\16S\raw\gom.stability.files, inputdir=D:\gom\data\16S\16S\raw, outputdir=D:\gom\data\16S\16S\process, processors=3)
+make.contigs(file=D:\gom\data\16S\raw\gom.stability.files, inputdir=D:\gom\data\16S\raw, outputdir=D:\gom\data\16S\process, processors=3)
 #Look at the new contigs fasta using summary.seqs
 summary.seqs(fasta=D:\gom\data\16S\process\gom.stability.trim.contigs.fasta)
 #Next we will screen.seqs to remove files that don't fit what we expect. The maxlength will change based on the results of the summary.seqs above
@@ -81,5 +81,3 @@ rarefaction.single(shared=D:\gom\data\16S\process\gom.stability.an.shared, calc=
 #generate a table with sequence number, coverage, OTU number, and inverse simpson diversity. subsample=T tells the command to use the size of the smallest library. the output is a summary file.
 summary.single(shared=D:\gom\data\16S\process\gom.stability.an.shared, calc=nseqs-coverage-sobs-invsimpson, subsample=T)
 #Beta diversity is better assessed in Primer or R. The real goal of this analysis in mothur is to get good taxonomy and shared files for further analysis.
-
-#gom_16s
